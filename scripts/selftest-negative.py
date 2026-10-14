@@ -308,6 +308,27 @@ def _(e, m):
     e["integration"] = "L0"
 
 
+@case("integration L3 is not open")
+def _(e, m):
+    e["integration"] = "L3"
+
+
+@case("ordinary MCP server claiming the L2 UI contract")
+def _(e, m):
+    e["integration"] = "L2"
+
+
+@case("L0 entry declaring ui contributions")
+def _(e, m):
+    e["integration"] = "L0"
+    e["uiContributions"] = ["commands"]
+
+
+@case("L1 entry declaring a main-page contribution")
+def _(e, m):
+    e["uiContributions"] = ["main-page"]
+
+
 @case("package manifest version drift from the entry")
 def _(e, m):
     m["version"] = "0.2.0"

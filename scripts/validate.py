@@ -524,6 +524,15 @@ def check_declaration(entry: dict, entry_id: str) -> None:
     if (not isinstance(ui, list) or len(ui) > 4 or len(set(ui)) != len(ui)
             or any(u not in UI_CONTRIBUTIONS for u in ui)):
         fail(entry_id, "uiContributions must be duplicate-free and drawn from " + ", ".join(sorted(UI_CONTRIBUTIONS)))
+    integration = entry["integration"]
+    if integration == "L3":
+        fail(entry_id, "integration L3 (sandboxed MCP Apps) is not open; it ships with the M3 sandbox and separate admission")
+    if integration == "L2" and entry["delivery"] in ("mcp-local", "mcp-remote"):
+        fail(entry_id, "an ordinary MCP server tops out at L1 host generic views; the main page and right panel are the L2 UI contract")
+    if ui and integration == "L0":
+        fail(entry_id, "integration L0 is agent-callable with no page; uiContributions need L1 or higher")
+    if integration != "L2" and any(u in ("main-page", "right-panel") for u in ui):
+        fail(entry_id, "main-page and right-panel contributions require the L2 UI contract")
     auth = entry.get("auth", {})
     if not isinstance(auth, dict) or set(auth) - {"connections"}:
         fail(entry_id, "auth may only carry connections")
