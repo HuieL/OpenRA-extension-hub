@@ -29,10 +29,10 @@
       "summary": "Search and inspect models, datasets, Spaces and papers on the Hugging Face Hub through Hugging Face's hosted MCP service; registers a connection, nothing is installed. Works anonymously; signing in is optional.",
       "delivery": "mcp-remote",
       "integration": "L0",
-      "version": "0.4.30",
-      "revision": "1011f57ddee32a7505f4d8406da34cb27bc383c4",
+      "version": "0.4.31",
+      "revision": "267a48f5b695afe180934a7b8252565bafc54c23",
       "entryPath": "entries/extensions/huggingface.hub-mcp/entry.json",
-      "entrySha256": "a809e49b072f3678d5c78430766d8ebb681b82f1d2e76d58f2e13c44c8822671"
+      "entrySha256": "5aab9c77bf92242e01b3940b5e48027f3cf0298cd4a33622f6063ec691356e6d"
     },
     {
       "id": "idosal.git-mcp",
