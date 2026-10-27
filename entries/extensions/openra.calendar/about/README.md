@@ -5,12 +5,12 @@ deadline points and preparation blocks together. Local planning is available
 on Windows, Linux and macOS without a cloud calendar account.
 
 On macOS, system-calendar reading is optional. The operating system asks
-for full calendar access; OpenAR's own constraint is to use it only for
+for full calendar access; OpenRA's own constraint is to use it only for
 reading. Refusing or revoking access leaves local plans available. System
-sync does not mean OpenAR connects directly to Google, Outlook or CalDAV;
+sync does not mean OpenRA connects directly to Google, Outlook or CalDAV;
 those legacy optional connectors are not required for local planning.
 
-**Delivery: bundled.** The code ships inside the OpenAR app. Installing this
+**Delivery: bundled.** The code ships inside the OpenRA app. Installing this
 entry from the Extension Hub records it as installed; open it and explicitly
 enable it to run. Nothing is downloaded or run from this repository.
 Installed, enabled, source visibility and reminder settings are separate
