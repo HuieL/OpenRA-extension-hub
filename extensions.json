@@ -52,9 +52,9 @@
       "delivery": "bundled",
       "integration": "L2",
       "version": "2.17.0",
-      "revision": "843402b351d111546f5c455c053d4debe2fd6b7a",
+      "revision": "9cdf94717366ab059556993a6c003a8f503c9da2",
       "entryPath": "entries/extensions/openra.calendar/entry.json",
-      "entrySha256": "2b304f4281138eed03f7b8444ac48328c800bbb27f748dea6bbc48b922bc8dea"
+      "entrySha256": "46c4696427d9a0843bb551f9cd89b53b75bf6d4e28f32897e0189bcaa7c2da17"
     },
     {
       "id": "openra.craft-suite",
