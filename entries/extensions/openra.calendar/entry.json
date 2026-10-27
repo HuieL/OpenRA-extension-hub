@@ -3,12 +3,12 @@
   "id": "openra.calendar",
   "kind": "extension",
   "name": "Calendar",
-  "summary": "A unified local calendar: events and day/week agendas, with your deadlines as a source layer.",
+  "summary": "Local research planning: project milestones, shared Todos, deadline points, preparation blocks and reminders.",
   "i18n": {
-    "zh-CN": "统一的本地日历：事件与日/周议程，截止日期作为来源层。",
-    "ja": "統合ローカルカレンダー：予定と日・週の議題に、締め切りをソース層として表示します。",
-    "ko": "통합 로컬 캘린더: 일정과 일간·주간 안건에 마감일을 소스 계층으로 표시합니다.",
-    "es": "Un calendario local unificado: eventos y agendas diarias o semanales, con tus fechas límite como capa de fuentes."
+    "zh-CN": "本地研究日程：项目里程碑、共享待办、截止日期、准备时间块与提醒。",
+    "ja": "ローカルの研究計画：プロジェクトのマイルストーン、共有Todo、締め切り、準備時間とリマインダー。",
+    "ko": "로컬 연구 계획: 프로젝트 마일스톤, 공유 할 일, 마감일, 준비 시간 블록 및 알림.",
+    "es": "Planificación local de investigación: hitos de proyectos, tareas compartidas, fechas límite, preparación y recordatorios."
   },
   "authors": [
     {
@@ -23,9 +23,9 @@
   "source": {
     "repo": "https://github.com/HuieL/OpenAR-extension-hub",
     "path": "entries/extensions/openra.calendar/about",
-    "revision": "13851face4677ddb81ebff458c3da8217432e46f"
+    "revision": "843402b351d111546f5c455c053d4debe2fd6b7a"
   },
-  "version": "2.16.0",
+  "version": "2.17.0",
   "license": "MIT",
   "review": {
     "status": "unreviewed"
@@ -35,7 +35,8 @@
     "hostApi": 1,
     "platforms": [
       "macos",
-      "linux"
+      "linux",
+      "windows"
     ]
   },
   "delivery": "bundled",
