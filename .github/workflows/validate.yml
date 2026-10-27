@@ -20,3 +20,5 @@ jobs:
         run: python3 scripts/selftest-negative.py
       - name: Packer selftest (local assets still pack deterministically)
         run: python3 scripts/selftest-package.py
+      - name: Pre-flight selftest (local manifests meet the CI rules)
+        run: python3 scripts/selftest-validate-package.py
