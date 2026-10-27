@@ -18,3 +18,5 @@ jobs:
           python3 scripts/build-index.py --check
       - name: Negative selftest (the validator still rejects every mutation)
         run: python3 scripts/selftest-negative.py
+      - name: Packer selftest (local assets still pack deterministically)
+        run: python3 scripts/selftest-package.py
