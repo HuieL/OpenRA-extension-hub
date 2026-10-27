@@ -1,12 +1,21 @@
 # Calendar
 
-A unified local calendar: your events and day/week agendas, with your
-deadlines as a source layer.
+Research Calendar keeps local events, project milestones, shared Todos,
+deadline points and preparation blocks together. Local planning is available
+on Windows, Linux and macOS without a cloud calendar account.
+
+On macOS, system-calendar reading is optional. The operating system asks
+for full calendar access; OpenAR's own constraint is to use it only for
+reading. Refusing or revoking access leaves local plans available. System
+sync does not mean OpenAR connects directly to Google, Outlook or CalDAV;
+those legacy optional connectors are not required for local planning.
 
 **Delivery: bundled.** The code ships inside the OpenAR app. Installing this
-entry from the Extension Hub switches it on for you; nothing is downloaded or
-run from this repository. Uninstalling turns it off everywhere and keeps
-everything it saved, so a later reinstall picks up where you left off.
+entry from the Extension Hub records it as installed; open it and explicitly
+enable it to run. Nothing is downloaded or run from this repository.
+Installed, enabled, source visibility and reminder settings are separate
+states. Uninstalling turns it off everywhere and keeps everything it saved,
+so a later reinstall can use the existing records.
 
 The entry's `version` must match the version the app ships; an app that
 ships another version refuses the install and asks you to update the app or
@@ -72,7 +81,7 @@ pick the matching entry.
   checks by merging precise zoned intervals of records and blocks; entries
   without precise times are reported as excluded, never inferred, and
   deadlines themselves are due points, never busy time.
-- **Connected calendars (CalDAV).** Store a small list of CalDAV accounts;
+- **Legacy optional connected calendars (CalDAV).** Store a small list of CalDAV accounts;
   `connection.refresh` discovers the address book's principal and calendars
   on demand and keeps per-calendar receipts (change tags, content
   signatures, coverage) separate from failed attempts, the same honest
@@ -81,7 +90,7 @@ pick the matching entry.
   with a management editor for add, label, edit and remove. Provider
   interfaces (Google, Outlook) are frozen optional extensions; nothing here
   registers an account with any service.
-- **Writing back to a connection.** `connection.event.save` and
+- **Legacy optional connection writes.** `connection.event.save` and
   `connection.event.delete` propose one record at a time against the
   calendar that already holds it: the server's entity tag is the write token,
   a stale token is a revision conflict, never an overwrite, and every
@@ -105,8 +114,11 @@ pick the matching entry.
   fetch, never stored, never merged into your events. Access is asked for
   once through the `system.grant` action (the system prompt shows up at
   most once; an unanswered prompt is reported as pending, never assumed),
-  and a denied or unavailable layer degrades alone. Windows and Linux
-  report the layer as unavailable and keep every local feature.
+  and a denied or unavailable layer degrades alone. Select system calendars
+  by their stable identities for the current time window; a fresh selection
+  starts empty and new calendars are not silently added. This is a read
+  filter, not a permission grant or a write path. Windows and Linux report
+  this layer as unavailable and retain local planning.
 - **Research focus.** Pin up to three research goals: a project with a
   concrete deadline point, either a labeled manual time or a stage from the
   read-only CCF snapshot. A TBD stage honestly stays "to be announced" —
