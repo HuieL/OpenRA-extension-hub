@@ -29,9 +29,9 @@
   "source": {
     "repo": "https://github.com/huggingface/hf-mcp-server",
     "path": ".",
-    "revision": "1011f57ddee32a7505f4d8406da34cb27bc383c4"
+    "revision": "267a48f5b695afe180934a7b8252565bafc54c23"
   },
-  "version": "0.4.30",
+  "version": "0.4.31",
   "license": "MIT",
   "review": {
     "status": "unreviewed"
@@ -87,8 +87,8 @@
         "skill://transformers-js/SKILL.md",
         "skill://trl-training/SKILL.md"
       ],
-      "observedAt": "2026-10-14T10:34:01Z",
-      "serverVersion": "0.4.30"
+      "observedAt": "2026-10-27T05:46:55Z",
+      "serverVersion": "0.4.31"
     }
   }
 }
