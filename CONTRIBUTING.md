@@ -42,6 +42,19 @@ account, and no install script to run here.
 4. Open a PR. CI runs `scripts/validate.py` (read-only, no secrets, no
    install step; it never executes anything from your entry).
 
+## Packaging a local asset
+
+For `package`, `mcp-local` and `cli` deliveries, build the zip with
+`python3 scripts/package-local.py <source-dir> --platforms macos,linux`.
+The pin in `entry.json` is a sha256 over exact bytes, so the artifact must
+be rebuildable byte-for-byte: the script fixes entry order, timestamps and
+permissions instead of leaving them to your zip tool's defaults, keeps the
+executable bit the install chain expects, refuses symlinks and special
+files, and prints the sha256 with a ready-to-paste `assets` snippet.
+Built zips are outputs — the script never repacks an existing `*.zip`, and
+`--check <published.zip>` verifies a published artifact still reproduces
+from the tree. Hosting the artifact is yours; this hub keeps only the pin.
+
 ## Remote MCP services
 
 An `mcp-remote` entry registers a connection to a hosted MCP service; the
