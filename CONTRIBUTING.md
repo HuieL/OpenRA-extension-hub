@@ -44,6 +44,13 @@ account, and no install script to run here.
 
 ## Packaging a local asset
 
+Before packaging, `python3 scripts/validate-package.py <source-dir>` pre-flights
+the tree's `extension.json` against the same admission rules CI runs on hosted
+package trees — violations surface locally, not in a red PR. With
+`--entry <entry.json>` the entry cross-checks (version, mcp spec, hostApi,
+binding backing) run too; the entry-side checks it cannot run are listed, never
+silently passed.
+
 For `package`, `mcp-local` and `cli` deliveries, build the zip with
 `python3 scripts/package-local.py <source-dir> --platforms macos,linux`.
 The pin in `entry.json` is a sha256 over exact bytes, so the artifact must
