@@ -1,0 +1,141 @@
+{
+  "id": "anycap.annotate",
+  "title": "Anycap Annotate",
+  "version": "0.1.0",
+  "hostApi": {
+    "min": 1,
+    "max": 1
+  },
+  "scopes": [
+    {
+      "kind": "personal"
+    },
+    {
+      "kind": "project"
+    }
+  ],
+  "page": {
+    "form": "annotate.poll"
+  },
+  "configSchema": {
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  },
+  "capabilities": [
+    "cli.invoke"
+  ],
+  "actions": [
+    {
+      "id": "annotate.start",
+      "binding": {
+        "kind": "cli",
+        "adapter": "anycap",
+        "version": "0.6.5",
+        "hash": "6ba752f9cdcb864dd86b2efb86413543e11d2828252008dbe95e96955df49c98"
+      },
+      "sideEffect": "network",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "maxBytes": 512
+          }
+        },
+        "required": [
+          "file"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "session": {
+            "type": "string",
+            "maxBytes": 128
+          },
+          "startsLeftToday": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "session",
+          "startsLeftToday"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "annotate.poll",
+      "binding": {
+        "kind": "cli",
+        "adapter": "anycap",
+        "version": "0.6.5",
+        "hash": "6ba752f9cdcb864dd86b2efb86413543e11d2828252008dbe95e96955df49c98"
+      },
+      "sideEffect": "network",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "session": {
+            "type": "string",
+            "maxBytes": 128
+          }
+        },
+        "required": [
+          "session"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      }
+    },
+    {
+      "id": "annotate.stop",
+      "binding": {
+        "kind": "cli",
+        "adapter": "anycap",
+        "version": "0.6.5",
+        "hash": "6ba752f9cdcb864dd86b2efb86413543e11d2828252008dbe95e96955df49c98"
+      },
+      "sideEffect": "network",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "session": {
+            "type": "string",
+            "maxBytes": 128
+          }
+        },
+        "required": [
+          "session"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "session": {
+            "type": "string",
+            "maxBytes": 128
+          },
+          "stopped": {
+            "type": "boolean"
+          },
+          "stale": {
+            "type": "boolean"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    }
+  ]
+}
