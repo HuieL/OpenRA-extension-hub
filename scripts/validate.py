@@ -10,10 +10,10 @@ single-label domains; mcp-local command words carry the runtime argv charset
 (1-32 words, entry word names a path inside the package tree) and never an
 inline = value; ids use the runtime definition-id grammar (underscore
 allowed); cli adapter/version and mcp tool/version use the runtime
-identifier and plain-word charsets; env references use the runtime field
+identifier (version pins dotted: bare semver) and plain-word charsets; env references use the runtime field
 name and bounds; entries carry the shared credit fields (authors required;
 maintainers, contributors, adapters, registrySubmitter, categories). A
-hosted package/extension.json (mcp-local convention) is validated against
+hosted package/extension.json (package/mcp-local convention) is validated against
 the runtime manifest contract: closed object schemas, exactly cli.invoke,
 no summary/lastUsedAt/presentation, id/version/hostApi/mcpServer/bindings
 agreeing with the entry. Zero dependencies beyond the Python standard
@@ -57,6 +57,10 @@ NAMESPACED_ID = re.compile(r"^[a-z0-9_-]+(\.[a-z0-9_-]+)+$")
 ARGV_WORD = re.compile(r"^[A-Za-z0-9_./=:-]+$")
 # Runtime identifier (cli adapter/version): [A-Za-z0-9_-], at most 64.
 IDENTIFIER = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
+# Dotted identifier (cli version pins, package-manifest action ids): the
+# runtime admits dots here because pinned first-party adapters register
+# under bare semver (`0.6.5`) and host action ids are already dotted.
+DOTTED_IDENTIFIER = re.compile(r"^[A-Za-z0-9_.-]{1,64}$")
 # Runtime plain word (tool names, server versions): no separators that
 # could smuggle a path or shell syntax.
 PLAIN_WORD = re.compile(r"^[A-Za-z0-9_.:-]{1,64}$")
@@ -165,7 +169,7 @@ def observed_at_timestamp(value) -> bool:
 # --- package extension.json (the OpenAR runtime manifest) ------------------
 # Mirrors parse_user_definition in the OpenAR repository: the hub must not
 # list a hosted package the runtime would refuse to install. Hosted package/
-# directories follow the mcp-local convention (like the skill hub's hosted
+# directories follow the package/mcp-local convention (like the skill hub's hosted
 # skill/ directories); catalog copy lives in the entry, so manifest
 # presentation and summary are refused here.
 
@@ -317,9 +321,9 @@ def check_manifest(entry: dict, entry_id: str, manifest) -> None:
                 "id", "binding", "sideEffect", "inputSchema", "outputSchema"}:
             fail(entry_id, "each manifest action has id, binding, sideEffect, inputSchema, outputSchema")
             return
-        if (not isinstance(action.get("id"), str) or not IDENTIFIER.match(action["id"])
+        if (not isinstance(action.get("id"), str) or not DOTTED_IDENTIFIER.match(action["id"])
                 or action["id"] in action_ids):
-            fail(entry_id, "manifest action ids are unique identifiers")
+            fail(entry_id, "manifest action ids are unique identifiers (dots allowed)")
             return
         action_ids.add(action["id"])
         if action.get("sideEffect") not in SIDE_EFFECTS:
@@ -330,18 +334,30 @@ def check_manifest(entry: dict, entry_id: str, manifest) -> None:
             fail(entry_id, f"manifest action {action['id']} schemas are not runtime-valid closed object schemas")
             return
         binding = action.get("binding")
-        if not isinstance(binding, dict) or set(binding) - {
-                "kind", "tool", "inputSchemaDigest", "outputSchemaDigest"}:
-            fail(entry_id, f"manifest action {action['id']} binding is an mcp binding with pinned digests")
+        if not isinstance(binding, dict):
+            fail(entry_id, f"manifest action {action['id']} binding must be an object")
             return
-        if (binding.get("kind") != "mcp" or not isinstance(binding.get("tool"), str)
+        if binding.get("kind") == "cli":
+            if (set(binding) != {"kind", "adapter", "version", "hash"}
+                    or not isinstance(binding.get("adapter"), str)
+                    or not IDENTIFIER.match(binding["adapter"])
+                    or not isinstance(binding.get("version"), str)
+                    or not DOTTED_IDENTIFIER.match(binding["version"])
+                    or binding["version"] in ("active", "latest", "unpinned")
+                    or not isinstance(binding.get("hash"), str)
+                    or not HEX64.match(binding["hash"])):
+                fail(entry_id, f"manifest action {action['id']} cli binding pins adapter, version (never active/latest/unpinned) and a sha256 content hash")
+                return
+        elif (set(binding) - {"kind", "tool", "inputSchemaDigest", "outputSchemaDigest"}
+                or binding.get("kind") != "mcp"
+                or not isinstance(binding.get("tool"), str)
                 or not PLAIN_WORD.match(binding["tool"])
                 or not isinstance(binding.get("inputSchemaDigest"), str)
                 or not HEX64.match(binding["inputSchemaDigest"])
                 or not (binding.get("outputSchemaDigest") is None
-                        or (isinstance(binding["outputSchemaDigest"], str)
+                        or (isinstance(binding.get("outputSchemaDigest"), str)
                             and HEX64.match(binding["outputSchemaDigest"])))):
-            fail(entry_id, f"manifest action {action['id']} binding must pin tool and schema digests")
+            fail(entry_id, f"manifest action {action['id']} binding is a cli pin or an mcp binding with pinned digests")
             return
         manifest_bindings.append(binding)
     if page["form"] not in action_ids:
@@ -355,33 +371,50 @@ def check_manifest(entry: dict, entry_id: str, manifest) -> None:
                 or not any(scope == {"kind": "project"} for scope in scopes)):
             fail(entry_id, "package manifest projectPanel is an openra.action-form view of a manifest action and needs the project scope")
             return
-    if entry.get("delivery") != "mcp-local":
-        fail(entry_id, "hosted package/ directories are the mcp-local convention")
+    if entry.get("delivery") == "package":
+        # A native package: host-declared actions over pinned CLI bindings,
+        # no MCP server of its own.
+        if manifest.get("kind") not in (None, "native") or manifest.get("mcpServer") is not None:
+            fail(entry_id, "package manifest kind is native (or absent) with no mcpServer")
+            return
+    elif entry.get("delivery") == "mcp-local":
+        if manifest.get("kind") != "mcp":
+            fail(entry_id, "mcp-local package manifest kind must be mcp")
+            return
+    else:
+        fail(entry_id, "hosted package/ directories are the package/mcp-local convention")
         return
-    if manifest.get("kind") != "mcp":
-        fail(entry_id, "mcp-local package manifest kind must be mcp")
-        return
-    server = manifest.get("mcpServer")
-    if not isinstance(server, dict) or set(server) - {"command", "version", "env", "transport"}:
-        fail(entry_id, "package manifest mcpServer has exactly command, version, env, transport")
-        return
-    server = dict(server)
-    server.setdefault("env", [])
-    check_mcp({"delivery": "mcp-local", "mcp": server}, entry_id)
-    if server != entry.get("mcp"):
-        fail(entry_id, "package manifest mcpServer must equal the entry mcp spec (command, version, env, transport)")
-        return
+    if entry.get("delivery") == "mcp-local":
+        server = manifest.get("mcpServer")
+        if not isinstance(server, dict) or set(server) - {"command", "version", "env", "transport"}:
+            fail(entry_id, "package manifest mcpServer has exactly command, version, env, transport")
+            return
+        server = dict(server)
+        server.setdefault("env", [])
+        check_mcp({"delivery": "mcp-local", "mcp": server}, entry_id)
+        if server != entry.get("mcp"):
+            fail(entry_id, "package manifest mcpServer must equal the entry mcp spec (command, version, env, transport)")
+            return
     if manifest.get("hostApi") != entry.get("compat", {}).get("hostApi"):
         fail(entry_id, "package manifest hostApi must equal the entry compat.hostApi")
         return
     for binding in entry.get("bindings", []):
-        if not isinstance(binding, dict) or binding.get("kind") != "mcp":
+        if not isinstance(binding, dict):
             continue
-        if not any(binding.get("tool") == action.get("tool")
-                   and binding.get("inputSchemaDigest") == action.get("inputSchemaDigest")
-                   and (binding.get("outputSchemaDigest") or None) == (action.get("outputSchemaDigest") or None)
-                   for action in manifest_bindings):
-            fail(entry_id, f"entry mcp binding {binding.get('tool')!r} has no matching manifest action binding")
+        if binding.get("kind") == "mcp":
+            if not any(action.get("kind") == "mcp"
+                       and binding.get("tool") == action.get("tool")
+                       and binding.get("inputSchemaDigest") == action.get("inputSchemaDigest")
+                       and (binding.get("outputSchemaDigest") or None) == (action.get("outputSchemaDigest") or None)
+                       for action in manifest_bindings):
+                fail(entry_id, f"entry mcp binding {binding.get('tool')!r} has no matching manifest action binding")
+        elif binding.get("kind") == "cli":
+            if not any(action.get("kind") == "cli"
+                       and binding.get("adapter") == action.get("adapter")
+                       and binding.get("version") == action.get("version")
+                       and binding.get("hash") == action.get("hash")
+                       for action in manifest_bindings):
+                fail(entry_id, f"entry cli binding {binding.get('adapter')!r}@{binding.get('version')!r} has no matching manifest action binding")
 
 
 def check_package_manifest(entry: dict, entry_id: str, entry_dir) -> None:
@@ -586,10 +619,10 @@ def check_bindings(entry: dict, entry_id: str) -> None:
             if set(binding) != {"kind", "adapter", "version", "hash"}:
                 fail(entry_id, "cli binding carries exactly kind, adapter, version, hash")
             elif (not isinstance(binding.get("adapter"), str) or not IDENTIFIER.match(binding["adapter"])
-                  or not isinstance(binding.get("version"), str) or not IDENTIFIER.match(binding["version"])
+                  or not isinstance(binding.get("version"), str) or not DOTTED_IDENTIFIER.match(binding["version"])
                   or binding.get("version") in ("active", "latest", "unpinned")
                   or not isinstance(binding.get("hash"), str) or not HEX64.match(binding["hash"])):
-                fail(entry_id, "cli binding must pin adapter, version (identifiers, never active/latest/unpinned) and a sha256 hash")
+                fail(entry_id, "cli binding must pin adapter (identifier), version (dotted identifier, never active/latest/unpinned) and a sha256 hash")
         else:
             allowed = {"kind", "tool", "inputSchemaDigest", "outputSchemaDigest"}
             required = {"kind", "tool", "inputSchemaDigest"}
