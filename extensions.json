@@ -48,13 +48,13 @@
     {
       "id": "openra.calendar",
       "name": "Calendar",
-      "summary": "A unified local calendar: events and day/week agendas, with your deadlines as a source layer.",
+      "summary": "Local research planning: project milestones, shared Todos, deadline points, preparation blocks and reminders.",
       "delivery": "bundled",
       "integration": "L2",
-      "version": "2.16.0",
-      "revision": "13851face4677ddb81ebff458c3da8217432e46f",
+      "version": "2.17.0",
+      "revision": "9cdf94717366ab059556993a6c003a8f503c9da2",
       "entryPath": "entries/extensions/openra.calendar/entry.json",
-      "entrySha256": "3b0f5d6381d2ba005fb009692abf6e1f0c0d0b814e5e741351c63260b11730db"
+      "entrySha256": "46c4696427d9a0843bb551f9cd89b53b75bf6d4e28f32897e0189bcaa7c2da17"
     },
     {
       "id": "openra.craft-suite",
