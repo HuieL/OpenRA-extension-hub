@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "id": "anycap.annotate",
+  "kind": "extension",
+  "name": "Anycap Annotate",
+  "summary": "Collect human feedback on a project's media files through the pinned Anycap CLI.",
+  "i18n": {
+    "zh-CN": "通过宿主固定的 Anycap CLI 对项目内的媒体文件收集人工反馈意见。",
+    "ja": "ホストに固定された Anycap CLI を通じて、プロジェクト内のメディアファイルへの人手のフィードバックを収集。",
+    "ko": "호스트에 고정된 Anycap CLI로 프로젝트 내 미디어 파일에 대한 사람의 피드백을 수집.",
+    "es": "Recoge comentarios humanos sobre los archivos multimedia de un proyecto a través de la CLI Anycap fijada por el host."
+  },
+  "authors": [
+    {
+      "name": "HuieL",
+      "github": "HuieL"
+    }
+  ],
+  "registrySubmitter": "HuieL",
+  "categories": [
+    "video",
+    "research"
+  ],
+  "source": {
+    "repo": "https://github.com/HuieL/OpenAR-extension-hub",
+    "path": "entries/extensions/anycap.annotate/package",
+    "revision": "dd5af4975e6b7c3966846d2db1859c32be41de05"
+  },
+  "version": "0.1.0",
+  "license": "MIT",
+  "licenseFile": "LICENSE",
+  "review": {
+    "status": "unreviewed"
+  },
+  "compat": {
+    "minHost": "0.3.0",
+    "hostApi": {"min": 1, "max": 1},
+    "platforms": [
+      "macos"
+    ]
+  },
+  "delivery": "package",
+  "integration": "L2",
+  "capabilities": [
+    "cli.invoke"
+  ],
+  "uiContributions": [
+    "main-page"
+  ],
+  "bindings": [
+    {
+      "kind": "cli",
+      "adapter": "anycap",
+      "version": "0.6.5",
+      "hash": "6ba752f9cdcb864dd86b2efb86413543e11d2828252008dbe95e96955df49c98"
+    }
+  ],
+  "assets": [
+    {
+      "platform": "macos",
+      "url": "https://raw.githubusercontent.com/HuieL/OpenAR-extension-hub/dd5af4975e6b7c3966846d2db1859c32be41de05/entries/extensions/anycap.annotate/package/anycap.annotate-0.1.0.zip",
+      "sha256": "851a5196acf9419ddcec5217b0ead9a575861dabae4f5385dfa647b2a3cb78fb",
+      "bytes": 4329
+    }
+  ]
+}

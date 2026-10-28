@@ -2,6 +2,17 @@
   "schemaVersion": 1,
   "entries": [
     {
+      "id": "anycap.annotate",
+      "name": "Anycap Annotate",
+      "summary": "Collect human feedback on a project's media files through the pinned Anycap CLI.",
+      "delivery": "package",
+      "integration": "L2",
+      "version": "0.1.0",
+      "revision": "dd5af4975e6b7c3966846d2db1859c32be41de05",
+      "entryPath": "entries/extensions/anycap.annotate/entry.json",
+      "entrySha256": "aa1428c6d30854a3acbdd37765f74bb500e15738398664112bd5e0c1d469dd77"
+    },
+    {
       "id": "hub.mcp-echo",
       "name": "MCP Echo",
       "summary": "Minimal local stdio MCP server exposing one echo tool; the reference end-to-end install target for the OpenAR extension hub.",
