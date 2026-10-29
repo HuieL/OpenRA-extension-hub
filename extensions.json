@@ -8,9 +8,9 @@
       "delivery": "package",
       "integration": "L2",
       "version": "0.1.0",
-      "revision": "dd5af4975e6b7c3966846d2db1859c32be41de05",
+      "revision": "87575f3e17d82d4b6d854f80ddcee8837641a58a",
       "entryPath": "entries/extensions/anycap.annotate/entry.json",
-      "entrySha256": "aa1428c6d30854a3acbdd37765f74bb500e15738398664112bd5e0c1d469dd77"
+      "entrySha256": "109fcbe4c1e00843427c5fc94574bbcda427c37422fa433e429bf58bd571da0a"
     },
     {
       "id": "hub.mcp-echo",

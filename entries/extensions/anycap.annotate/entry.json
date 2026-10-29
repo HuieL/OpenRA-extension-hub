@@ -24,7 +24,7 @@
   "source": {
     "repo": "https://github.com/HuieL/OpenAR-extension-hub",
     "path": "entries/extensions/anycap.annotate/package",
-    "revision": "dd5af4975e6b7c3966846d2db1859c32be41de05"
+    "revision": "87575f3e17d82d4b6d854f80ddcee8837641a58a"
   },
   "version": "0.1.0",
   "license": "MIT",
@@ -34,7 +34,10 @@
   },
   "compat": {
     "minHost": "0.3.0",
-    "hostApi": {"min": 1, "max": 1},
+    "hostApi": {
+      "min": 1,
+      "max": 1
+    },
     "platforms": [
       "macos"
     ]
@@ -52,14 +55,14 @@
       "kind": "cli",
       "adapter": "anycap",
       "version": "0.6.5",
-      "hash": "6ba752f9cdcb864dd86b2efb86413543e11d2828252008dbe95e96955df49c98"
+      "hash": "9e36f4e5ee718c070db58c0b3e252628fba0832083bdaa90b4f2f978785d4b9d"
     }
   ],
   "assets": [
     {
       "platform": "macos",
-      "url": "https://raw.githubusercontent.com/HuieL/OpenAR-extension-hub/dd5af4975e6b7c3966846d2db1859c32be41de05/entries/extensions/anycap.annotate/package/anycap.annotate-0.1.0.zip",
-      "sha256": "851a5196acf9419ddcec5217b0ead9a575861dabae4f5385dfa647b2a3cb78fb",
+      "url": "https://raw.githubusercontent.com/HuieL/OpenAR-extension-hub/87575f3e17d82d4b6d854f80ddcee8837641a58a/entries/extensions/anycap.annotate/package/anycap.annotate-0.1.0.zip",
+      "sha256": "6ea647c2fd6bb1073cbb481871333424659ce2501eea13d38c363a65c1f06447",
       "bytes": 4329
     }
   ]
