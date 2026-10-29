@@ -33,7 +33,7 @@
         "kind": "cli",
         "adapter": "anycap",
         "version": "0.6.5",
-        "hash": "6ba752f9cdcb864dd86b2efb86413543e11d2828252008dbe95e96955df49c98"
+        "hash": "9e36f4e5ee718c070db58c0b3e252628fba0832083bdaa90b4f2f978785d4b9d"
       },
       "sideEffect": "network",
       "inputSchema": {
@@ -74,7 +74,7 @@
         "kind": "cli",
         "adapter": "anycap",
         "version": "0.6.5",
-        "hash": "6ba752f9cdcb864dd86b2efb86413543e11d2828252008dbe95e96955df49c98"
+        "hash": "9e36f4e5ee718c070db58c0b3e252628fba0832083bdaa90b4f2f978785d4b9d"
       },
       "sideEffect": "network",
       "inputSchema": {
@@ -103,7 +103,7 @@
         "kind": "cli",
         "adapter": "anycap",
         "version": "0.6.5",
-        "hash": "6ba752f9cdcb864dd86b2efb86413543e11d2828252008dbe95e96955df49c98"
+        "hash": "9e36f4e5ee718c070db58c0b3e252628fba0832083bdaa90b4f2f978785d4b9d"
       },
       "sideEffect": "network",
       "inputSchema": {
