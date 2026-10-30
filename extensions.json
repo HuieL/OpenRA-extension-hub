@@ -84,10 +84,10 @@
       "summary": "Run long-form research with your configured provider and read the saved reports.",
       "delivery": "bundled",
       "integration": "L2",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "revision": "f24133a112226f125921b3384b91443a1cca80aa",
       "entryPath": "entries/extensions/openra.deep-research/entry.json",
-      "entrySha256": "8925bffe80f0407d5b747b6ab64e51aeb241ee0db8ca36247334142b2fdbe49a"
+      "entrySha256": "b0cbeb330b02b15ae87def1318bc31cdcc1f24cb05184f23dac426d458fd47bc"
     },
     {
       "id": "openra.paper-search",
@@ -95,10 +95,10 @@
       "summary": "Search papers, keep categorized reading lists and save results into your library.",
       "delivery": "bundled",
       "integration": "L2",
-      "version": "1.3.0",
+      "version": "1.4.0",
       "revision": "f24133a112226f125921b3384b91443a1cca80aa",
       "entryPath": "entries/extensions/openra.paper-search/entry.json",
-      "entrySha256": "3f7b122e407fb0d00236702187bc71a8a8f0206e8dc03ab42422cfe790ebb878"
+      "entrySha256": "d4c7a3a95d9f1f93dc3fe522eb3990f7e81aa5cec71b6e0acca7f9928600b143"
     },
     {
       "id": "scientific-compute",
@@ -106,10 +106,10 @@
       "summary": "Install commit-pinned scientific tools, verify them with their self-tests and run them locally.",
       "delivery": "bundled",
       "integration": "L2",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "revision": "f24133a112226f125921b3384b91443a1cca80aa",
       "entryPath": "entries/extensions/scientific-compute/entry.json",
-      "entrySha256": "7e69318fb06796649058d6209c4591db07b9b6546236fe0d2049b745da27f51e"
+      "entrySha256": "a3155b68b455aab39fc479a50499dc5a61bcf7004ba3b89d72a7ae19c837e5f7"
     },
     {
       "id": "upstash.context7",
